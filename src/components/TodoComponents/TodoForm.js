@@ -9,13 +9,28 @@ class TodoForm extends Component {
     this.state = {
       newTask: " "
     };
-    console.log(this.state);
   }
+
+  handleChange = e => {
+    this.setState({
+      newTask: e.target.value
+    });
+  };
+
+  submitChanges = e => {
+    e.preventDefault();
+    this.props.addNewTask(this.state.newTask);
+    this.setState({ newTask: "" });
+  };
 
   render() {
     return (
-      <form>
-        <input type="text" />
+      <form onSubmit={this.submitChanges}>
+        <input
+          type="text"
+          value={this.state.newTask}
+          onChange={this.handleChange}
+        />
         <button>add</button>
       </form>
     );

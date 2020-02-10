@@ -24,18 +24,39 @@ class App extends Component {
       taskList: taskList
     };
     console.log(taskList);
-    // toggleTask = (taskName) => {
-    //   const newTaskList = this.taskList.map(item => {
-
-    //   })
-    // }
   }
+  toggleTask = id => {
+    const newTaskList = this.state.taskList.map(item => {
+      if (item.id === id) {
+        return {
+          ...item,
+          completed: !item.completed
+        };
+      } else {
+        return item;
+      }
+    });
+    this.setState({
+      taskList: newTaskList
+    });
+  };
+
+  addNewTask = newTaskText => {
+    const newTaskItem = {
+      task: newTaskText,
+      id: Date.now(),
+      completed: false
+    };
+    this.setState({
+      taskList: [...this.state.taskList, newTaskItem]
+    });
+  };
 
   render() {
     return (
       <div>
-        <TodoForm />
-        <TodoList taskList={this.state.taskList} />
+        <TodoForm addNewTask={this.addNewTask} />
+        <TodoList taskList={this.state.taskList} toggleTask={this.toggleTask} />
       </div>
     );
   }
