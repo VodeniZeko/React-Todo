@@ -7,7 +7,7 @@ import "./Todo.css";
 const Todo = ({ task, toggleTask }) => {
   return (
     <div
-      className={`${task.completed ? "task" : "done"}`}
+      className={`${task.completed ? "done" : "task"}`}
       onClick={() => toggleTask(task.id)}
     >
       {task.task}

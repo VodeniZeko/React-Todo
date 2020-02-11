@@ -8,22 +8,9 @@ class App extends Component {
   // this component is going to take care of state, and any change handlers you need to work with your state
   constructor() {
     super();
-    const taskList = [
-      {
-        task: "Organize Garage",
-        id: 1528817077286,
-        completed: false
-      },
-      {
-        task: "Bake Cookies",
-        id: 1528817084358,
-        completed: false
-      }
-    ];
     this.state = {
-      taskList: taskList
+      taskList: []
     };
-    console.log(taskList);
   }
   toggleTask = id => {
     const newTaskList = this.state.taskList.map(item => {
@@ -44,7 +31,7 @@ class App extends Component {
   addNewTask = newTaskText => {
     const newTaskItem = {
       task: newTaskText,
-      id: Date.now(),
+      id: new Date().toLocaleString(),
       completed: false
     };
     this.setState({
@@ -52,11 +39,21 @@ class App extends Component {
     });
   };
 
+  deleteTasks = () => {
+    this.setState({
+      taskList: this.state.taskList.filter(item => !item.completed)
+    });
+  };
+
   render() {
     return (
       <div>
         <TodoForm addNewTask={this.addNewTask} />
-        <TodoList taskList={this.state.taskList} toggleTask={this.toggleTask} />
+        <TodoList
+          deleteTasks={this.deleteTasks}
+          taskList={this.state.taskList}
+          toggleTask={this.toggleTask}
+        />
       </div>
     );
   }
